@@ -1,0 +1,32 @@
+<div class="sidebar">
+  <h2>🍷 Friday Sommelier</h2>
+
+  <div class="sidebar-user-box">
+    {% if user.is_authenticated %}
+      <span class="sidebar-user-label">Logged in as:</span>
+      <div class="sidebar-username-wrapper">
+        <a href="{% url 'catalog:profile' %}" class="sidebar-username-link">
+          👤 {{ user.username }}
+        </a>
+      </div>
+      <div class="sidebar-user-level">Level: {{ user.get_experience_level_display }}</div>
+      <form action="{% url 'account_logout' %}" method="post" class="sidebar-logout-form">
+        {% csrf_token %}
+        <button type="submit" class="sidebar-btn-logout">🚪 Log Out</button>
+      </form>
+    {% else %}
+      <span class="sidebar-user-label">Anonymous Taster</span>
+      <div class="sidebar-auth-container">
+        <a href="{% url 'account_login' %}" class="sidebar-auth-btn login-btn">Sign In</a>
+        <a href="{% url 'account_signup' %}" class="sidebar-auth-btn signup-btn">Sign Up</a>
+      </div>
+    {% endif %}
+  </div>
+
+  <ul class="sidebar-menu">
+    <li><a href="{% url 'catalog:profile' %}">👤 My Profile</a></li>
+    <li><a href="{% url 'catalog:beverage-list' %}">📁 Beverage Catalog</a></li>
+    <li><a href="{% url 'catalog:snack-list' %}">🧀 Snack Pairings</a></li>
+    <li><a href="{% url 'catalog:flavor-list' %}">👅 Search by Flavors</a></li>
+  </ul>
+</div>

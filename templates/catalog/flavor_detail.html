@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Flavor: {{ flavor.name }} - Friday Sommelier{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'catalog:flavor-list' %}" class="back-link">&larr; Back to Flavors</a></p>
+
+  <h2 class="page-title">Taste Profile: <span class="tag"
+                                              style="font-size: 1.3rem; padding: 6px 15px;">#{{ flavor.name }}</span>
+  </h2>
+
+  <h3 class="section-title">🍷 Matching Beverages</h3>
+  <ul class="relation-list">
+    {% for beverage in flavor.beverages.all %}
+      <li class="relation-item">
+        <a href="{% url 'catalog:beverage-detail' beverage.id %}"
+           style="color: #2b1029; font-weight: bold; text-decoration: none;">
+          {{ beverage.name }}
+        </a>
+        <span class="item-card-meta">— {{ beverage.alcohol_type.name }} ({{ beverage.alcohol_strength }}%)</span>
+      </li>
+    {% empty %}
+      <p style="color: #999; font-style: italic;">No beverages are currently tagged with this flavor profile.</p>
+    {% endfor %}
+  </ul>
+
+  <div class="action-actions">
+    <a href="{% url 'catalog:flavor-update' flavor.id %}" class="btn btn-primary" style="background-color: #3498db;">✏️
+      Edit Flavor Name</a>
+    <a href="{% url 'catalog:flavor-delete' flavor.id %}" class="btn btn-danger">🗑️ Delete Flavor</a>
+  </div>
+{% endblock %}

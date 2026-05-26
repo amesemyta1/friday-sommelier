@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}{{ snack.name }} - Friday Sommelier{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'catalog:snack-list' %}" class="back-link">&larr; Back to Snacks</a></p>
+
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+    <h2 class="page-title" style="margin: 0;">{{ snack.name }}</h2>
+    {% if snack.is_cooking_required %}
+      <span class="tag tag-cooking" style="font-size: 1rem; padding: 6px 12px;">Requires Cooking 🍳</span>
+    {% else %}
+      <span class="tag" style="background-color: #e2f0d9; color: #385723; font-size: 1rem; padding: 6px 12px;">Ready to Serve 🥖</span>
+    {% endif %}
+  </div>
+
+  {% if snack.description %}
+    <h3 class="section-title">📝 Description</h3>
+    <p style="line-height: 1.6; color: #333;">{{ snack.description }}</p>
+  {% endif %}
+
+  <h3 class="section-title" style="margin-top: 35px;">🍷 Pairs Perfectly With</h3>
+  <ul class="relation-list">
+    {% for beverage in snack.beverages.all %}
+      <li class="relation-item">
+        <a href="{% url 'catalog:beverage-detail' beverage.id %}"
+           style="color: #2b1029; font-weight: bold; text-decoration: none;">
+          {{ beverage.name }}
+        </a>
+        <span class="item-card-meta">— {{ beverage.alcohol_type.name }} ({{ beverage.alcohol_strength }}%)</span>
+      </li>
+    {% empty %}
+      <p style="color: #999; font-style: italic;">No specific beverages have been paired with this snack yet.</p>
+    {% endfor %}
+  </ul>
+
+  <div class="action-actions">
+    <a href="{% url 'catalog:snack-update' snack.id %}" class="btn btn-primary" style="background-color: #3498db;">✏️
+      Edit Snack</a>
+    <a href="{% url 'catalog:snack-delete' snack.id %}" class="btn btn-danger">🗑️ Delete Snack</a>
+  </div>
+{% endblock %}

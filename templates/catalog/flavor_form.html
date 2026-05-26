@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {% if object %}Edit {{ object.name }}{% else %}Add New Flavor{% endif %} - Friday Sommelier
+{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'catalog:flavor-list' %}" class="back-link">&larr; Back to Flavors</a></p>
+
+  <h2 class="page-title">
+    {% if object %}📝 Edit Flavor Tag: {{ object.name }}{% else %}➕ Create a New Flavor Tag{% endif %}
+  </h2>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+
+        {% for error in field.errors %}
+          <div style="color: #e74c3c; font-size: 0.9rem; margin-top: 5px;">{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    <div class="action-actions">
+      <button type="submit" class="btn btn-primary">Save Flavor</button>
+      <a href="{% url 'catalog:flavor-list' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

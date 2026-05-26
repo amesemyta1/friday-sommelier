@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Beverage Catalog - Friday Sommelier{% endblock %}
+
+{% block content %}
+  <h2 style="color: #2b1029; margin-top: 0;">📋 Beverage Catalog</h2>
+  <p style="color: #666; margin-bottom: 25px;">
+    Explore our curated collection of drinks. Click on any beverage to discover its unique flavor profile and perfect
+    snack pairings.
+  </p>
+  <div style="margin-bottom: 25px;">
+    <a href="{% url 'catalog:beverage-create' %}" class="btn btn-primary" style="text-decoration: none;">+ Add New
+      Beverage</a>
+  </div>
+  <form method="get" action="{% url 'catalog:beverage-list' %}" class="search-form">
+    {{ search_form.search }}
+
+    <button type="submit" class="btn-search">🔍 Search</button>
+
+    {% if request.GET.search %}
+      <a href="{% url 'catalog:beverage-list' %}" class="btn btn-secondary"
+         style="text-decoration: none; display: flex; align-items: center;">Clear</a>
+    {% endif %}
+  </form>
+  <div style="display: flex; flex-direction: column; gap: 15px;">
+    {% for beverage in beverages %}
+      <div style="border-bottom: 1px solid #f0e6ef; padding-bottom: 15px;">
+        <a href="{% url 'catalog:beverage-detail' beverage.id %}"
+           style="font-size: 1.25rem; color: #2b1029; font-weight: bold; text-decoration: none;">
+          {{ beverage.name }}
+        </a>
+        <div style="margin-top: 5px; color: #555; font-size: 0.95rem;">
+          <span style="font-weight: 600;">Type:</span> {{ beverage.alcohol_type.name }} |
+          <span style="font-weight: 600;">ABV:</span> {{ beverage.alcohol_strength }}% |
+          <span class="price">${{ beverage.average_price }}</span>
+        </div>
+      </div>
+    {% empty %}
+      <p>The bar is currently empty. Please visit the Django Admin to add some beverages!</p>
+    {% endfor %}
+  </div>
+
+  {% include "includes/pagination.html" %}
+{% endblock %}

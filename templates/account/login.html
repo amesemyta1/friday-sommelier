@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Friday Sommelier{% endblock %}
+
+{% block content %}
+  <h2 class="page-title">🔐 Sign In</h2>
+  <p class="page-subtitle">Welcome back! Please log in to access your sommelier account.</p>
+
+  <form method="post" action="{% url 'account_login' %}" novalidate>
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+
+        {% for error in field.errors %}
+          <div style="color: #e74c3c; font-size: 0.9rem; margin-top: 5px;">{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    <div class="action-actions">
+      <button type="submit" class="btn btn-primary">Log In</button>
+    </div>
+  </form>
+
+  <p style="margin-top: 20px; color: #666;">
+    Don't have an account yet? <a href="{% url 'account_signup' %}" class="back-link">Register here</a>.
+  </p>
+{% endblock %}

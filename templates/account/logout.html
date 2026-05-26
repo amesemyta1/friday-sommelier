@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Log Out - Friday Sommelier{% endblock %}
+
+{% block content %}
+    <h2 class="page-title">🚪 Sign Out</h2>
+    <p class="page-subtitle">Are you sure you want to log out of your Friday Sommelier account?</p>
+
+    <form method="post" action="{% url 'account_logout' %}" class="action-actions">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Log Out</button>
+        <a href="{% url 'catalog:beverage-list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {% if object %}Edit {{ object.name }}{% else %}Add New Beverage{% endif %} - Friday Sommelier
+{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'catalog:beverage-list' %}" class="back-link">&larr; Back to Catalog</a></p>
+
+  <h2 style="color: #2b1029; margin-bottom: 25px;">
+    {% if object %}📝 Edit Beverage: {{ object.name }}{% else %}➕ Add a New Beverage{% endif %}
+  </h2>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: #8c7289;">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <div style="color: #e74c3c; font-size: 0.9rem; margin-top: 5px;">{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    <div style="margin-top: 30px;">
+      <button type="submit" class="btn btn-primary">Save Beverage</button>
+      <a href="{% url 'catalog:beverage-list' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

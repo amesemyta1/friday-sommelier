@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Flavor Profiles - Friday Sommelier{% endblock %}
+
+{% block content %}
+  <h2 class="page-title">👅 Flavor Profiles</h2>
+  <p class="page-subtitle">Explore beverages based on your preferred taste. Select a flavor tag to see matching
+    drinks.</p>
+
+  <div class="form-group">
+    <a href="{% url 'catalog:flavor-create' %}" class="btn btn-primary">+ Add New Flavor</a>
+  </div>
+  <form method="get" action="{% url 'catalog:flavor-list' %}" class="search-form">
+    {{ search_form.search }}
+    <button type="submit" class="btn-search">🔍 Search</button>
+    {% if request.GET.search %}
+      <a href="{% url 'catalog:flavor-list' %}" class="btn btn-secondary"
+         style="text-decoration: none; align-content: center;">Clear</a>
+    {% endif %}
+  </form>
+  <div class="relation-list">
+    {% for flavor in flavors %}
+      <div class="item-card">
+        <a href="{% url 'catalog:flavor-detail' flavor.id %}" class="tag">
+          #{{ flavor.name }}
+        </a>
+        <span class="item-card-meta">
+                    {{ flavor.beverages.count }} items paired
+                </span>
+      </div>
+    {% empty %}
+      <p>No flavors added yet. Start by creating a few taste tags!</p>
+    {% endfor %}
+    {% include "includes/pagination.html" %}
+  </div>
+{% endblock %}

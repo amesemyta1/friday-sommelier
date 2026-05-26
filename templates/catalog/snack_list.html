@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Snack Pairings - Friday Sommelier{% endblock %}
+
+{% block content %}
+  <h2 class="page-title">🧀 Snack Pairings</h2>
+  <p class="page-subtitle">Browse our selection of perfect snacks. Click on any snack to see which drinks it complements
+    best.</p>
+
+  <div style="margin-bottom: 25px;"><a href="{% url 'catalog:snack-create' %}" class="btn btn-primary">+ Add New
+    Snack</a>
+  </div>
+  <form method="get" action="{% url 'catalog:snack-list' %}" class="search-form">
+    {{ search_form.search }}
+    <button type="submit" class="btn-search">🔍 Search</button>
+    {% if request.GET.search %}
+      <a href="{% url 'catalog:snack-list' %}" class="btn btn-secondary"
+         style="text-decoration: none; align-content: center;">Clear</a>
+    {% endif %}
+  </form>
+  <div style="display: flex; flex-direction: column; gap: 15px;">
+    {% for snack in snacks %}
+      <div class="item-card">
+        <div>
+          <a href="{% url 'catalog:snack-detail' snack.id %}"
+             style="font-size: 1.2rem; color: #2b1029; font-weight: bold; text-decoration: none;">
+            {{ snack.name }}
+          </a>
+          {% if snack.description %}
+            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.95rem;">{{ snack.description|truncatewords:15 }}</p>
+          {% endif %}
+        </div>
+        <div>
+          {% if snack.is_cooking_required %}
+            <span class="tag tag-cooking">Requires Cooking 🍳</span>
+          {% else %}
+            <span class="tag" style="background-color: #e2f0d9; color: #385723;">Ready to Serve 🥖</span>
+          {% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <p>No snacks available. Click the button above to add some!</p>
+    {% endfor %}
+    {% include "includes/pagination.html" %}
+  </div>
+{% endblock %}

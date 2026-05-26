@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Delete {{ object.name }} - Friday Sommelier{% endblock %}
+
+{% block content %}
+  <h2 style="color: #e74c3c; margin-top: 0;">🗑️ Delete Snack</h2>
+  <p style="font-size: 1.1rem; line-height: 1.6;">
+    Are you sure you want to delete the snack <strong>"{{ object.name }}"</strong>? This action cannot be undone.
+  </p>
+
+  <form method="post" style="margin-top: 25px;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="{% url 'catalog:snack-detail' object.id %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}
