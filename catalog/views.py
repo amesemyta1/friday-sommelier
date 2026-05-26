@@ -63,7 +63,6 @@ class BeverageCreateView(generic.CreateView):
     model = Beverage
     form_class = BeverageForm
     template_name = "catalog/beverage_form.html"
-    # Куда перенаправить после успешного создания (на список всех напитков)
     success_url = reverse_lazy("catalog:beverage-list")
 
 
@@ -72,7 +71,6 @@ class BeverageUpdateView(generic.UpdateView):
     form_class = BeverageForm
     template_name = "catalog/beverage_form.html"
 
-    # Перенаправляем на детальную страницу обновленного напитка
     def get_success_url(self):
         return reverse_lazy(
             "catalog:beverage-detail", kwargs={"pk": self.object.pk}
@@ -205,10 +203,15 @@ class TasterProfileView(LoginRequiredMixin, generic.UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        if user.preferred_flavors.exists():
-            context["recommended_beverages"] = Beverage.objects.filter(
-                flavors__in=user.preferred_flavors.all()
-            ).distinct()[:5]
+        preferred_flavors = user.preferred_flavors.all()
+
+        if preferred_flavors.exists():
+            context["recommended_beverages"] = (
+                Beverage.objects.filter(flavors__in=preferred_flavors)
+                .select_related("alcohol_type")
+                .prefetch_related("flavors")
+                .distinct()[:5]
+            )
         else:
             context["recommended_beverages"] = None
         return context
