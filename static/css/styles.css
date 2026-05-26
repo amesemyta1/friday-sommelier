@@ -1,0 +1,536 @@
+/* Общие стили для всего сайта */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fcfafc;
+    color: #2b2b2b;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Контейнер-обертка для гибкой разметки */
+.app-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+/* 📊 Стиль Боковой панели (Sidebar) */
+.sidebar {
+    width: 260px;
+    background-color: #2b1029; /* Глубокий винный цвет */
+    color: #ffffff;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.sidebar h2 {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 1px solid #4a1e46;
+    padding-bottom: 15px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 12px;
+}
+
+.sidebar-menu a {
+    color: #dfcedc;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu a:hover {
+    background-color: #4a1e46;
+    color: #ffffff;
+    padding-left: 20px;
+}
+
+/* 📝 Стили Основного контента */
+.main-content {
+    margin-left: 260px; /* Отступ равен ширине сайдбара */
+    flex-grow: 1;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 900px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Хлебные крошки и ссылки назад */
+.back-link {
+    color: #8c7289;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+.back-link:hover { text-decoration: underline; }
+
+/* Дизайн тегов (Вкусы, статусы) */
+.tag {
+    background-color: #f0e6ef;
+    color: #6a2c63;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.tag-cooking {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.price {
+    color: #27ae60;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Футер внутри контента */
+.footer {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #9c8b9a;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+/* Стили для элементов форм */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #4a1e46;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dfcedc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    background-color: #fdfbfe;
+}
+
+.form-control:focus {
+    border-color: #6a2c63;
+    outline: none;
+    box-shadow: 0 0 4px rgba(106, 44, 99, 0.2);
+}
+
+.is_cooking_required {
+    width: 18px;
+    height: 18px;
+    accent-color: #6a2c63;
+    cursor: pointer;
+}
+
+/* Кнопки */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.btn-primary { background-color: #6a2c63; color: white; }
+.btn-primary:hover { background-color: #4a1e46; }
+
+.btn-secondary { background-color: #e0e0e0; color: #333; margin-left: 10px; }
+.btn-secondary:hover { background-color: #d0d0d0; }
+
+.btn-danger { background-color: #e74c3c; color: white; }
+.btn-danger:hover { background-color: #c0392b; }
+
+/* Кнопки управления на страницах */
+.action-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Заголовки и тексты на страницах CRUD */
+.page-title {
+    color: #2b1029;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.page-subtitle {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    color: #4a1e46;
+    border-bottom: 2px solid #f0e6ef;
+    padding-bottom: 5px;
+    margin-top: 30px;
+}
+
+/* Списки и элементы каталогов */
+.item-card {
+    border-bottom: 1px solid #f0e6ef;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-card-vertical {
+    border-bottom: 1px solid #f0e6ef;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.item-card-meta {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+/* Обёртка для чекбокса "is_cooking_required" */
+.checkbox-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #faf8fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dfcedc;
+}
+
+.checkbox-card label {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+/* Списки обратных связей (например, напитки внутри закуски) */
+.relation-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.relation-item {
+    background: #faf8fa;
+    padding: 12px 15px;
+    border-radius: 6px;
+    border-left: 3px solid #3498db;
+}
+
+/* Блок персональных рекомендаций в профиле */
+.recommendation-box {
+    background-color: #fdfafc;
+    border: 1px solid #f3e9f1;
+    border-left: 4px solid #d4af37; /* Золотистый бордер подчеркивает премиальность подборки */
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.recommendation-box h4 {
+    margin-top: 0;
+    color: #4a1e46;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+/* Кнопки избранного */
+.btn-favorite {
+    background-color: #f3e9f1;
+    color: #4a1e46;
+    border: 1px solid #dfcedc;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.btn-favorite:hover {
+    background-color: #dfcedc;
+}
+
+.btn-favorite.active {
+    background-color: #e74c3c;
+    color: #ffffff;
+    border-color: #c0392b;
+}
+
+.btn-favorite.active:hover {
+    background-color: #c0392b;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 30px;
+    border-radius: 6px;
+    gap: 5px;
+}
+
+.page-item {
+    display: inline-block;
+}
+
+.page-link {
+    display: block;
+    padding: 8px 16px;
+    color: #4a1e46;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #dfcedc;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.page-link:hover {
+    background-color: #f3e9f1;
+    border-color: #4a1e46;
+}
+
+/* Стили для активной (текущей) страницы */
+.page-item.active .page-link {
+    background-color: #4a1e46;
+    border-color: #4a1e46;
+    color: #ffffff;
+    cursor: default;
+}
+
+/* Блок поиска */
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    background-color: #faf8fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dfcedc;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #dfcedc;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.search-input:focus {
+    border-color: #4a1e46;
+}
+
+.btn-search {
+    background-color: #4a1e46;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-search:hover {
+    background-color: #2b1029;
+}
+
+/* Стилизация текстовых полей, паролей и email внутри форм */
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="number"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    color: #2b1029;
+    background-color: #ffffff;
+    border: 1px solid #dfcedc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+/* Эффект свечения при фокусе на инпут */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #4a1e46;
+    box-shadow: 0 0 0 3px rgba(74, 30, 70, 0.15);
+    background-color: #fff;
+}
+
+/* Текст меток (Labels) */
+.form-group label {
+    font-weight: 600;
+    color: #4a1e46;
+    font-size: 0.95rem;
+}
+
+/* Обертка для кнопок внизу формы */
+.action-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    align-items: center;
+}
+
+/* Ссылки перехода (например, "Register here") */
+.back-link {
+    color: #c0392b;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.back-link:hover {
+    color: #4a1e46;
+    text-decoration: underline;
+}
+
+.sidebar-user-box{
+    padding-bottom: 30px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #4a1e46
+}
+
+/* Контейнер для кнопок входа/регистрации */
+.sidebar-auth-container {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 8px 0; /* Отступ между кнопками */
+    margin-top: 10px;
+}
+
+/* Общий стиль для кнопок-ссылок */
+.sidebar-auth-btn {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+/* Стиль для кнопки Sign In (светлая/золотая аккуратная кнопка) */
+.sidebar-auth-btn.login-btn {
+    background-color: #ffc107;
+    color: #2b1029;
+}
+
+.sidebar-auth-btn.login-btn:hover {
+    background-color: #ffd54f;
+    transform: translateY(-1px);
+}
+
+/* Стиль для кнопки Sign Up (более сдержанная, бордовая в цвет рамки) */
+.sidebar-auth-btn.signup-btn {
+    background-color: #4a1e46;
+    color: #ffffff;
+    border: 1px solid #5d2758;
+}
+
+.sidebar-auth-btn.signup-btn:hover {
+    background-color: #5d2758;
+    transform: translateY(-1px);
+}
+
+/* Контейнер для юзернейма */
+.sidebar-username-wrapper {
+    margin: 4px 0;
+}
+
+/* Красивая ссылка на профиль */
+.sidebar-username-link {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffc107; /* Красивый золотистый цвет для имени */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.sidebar-username-link:hover {
+    color: #ffd54f;
+    text-shadow: 0 0 8px rgba(255, 193, 7, 0.3);
+}
+
+/* Изменяем отображение уровня сомелье */
+.sidebar-user-level {
+    font-size: 0.85rem;
+    color: #b19bb0; /* Ненавязчивый приглушенный цвет */
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+/* Кнопка Log Out (вместо стандартной серой) */
+.sidebar-btn-logout {
+    width: 100%;
+    background-color: #4a1e46; /* Темный винный, в цвет рамки */
+    color: #ffffff;
+    border: 1px solid #5d2758;
+    padding: 8px 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sidebar-btn-logout:hover {
+    background-color: #c0392b; /* Мягко краснеет только при наведении */
+    border-color: #c0392b;
+    transform: translateY(-1px);
+}
