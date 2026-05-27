@@ -113,7 +113,11 @@ class TasterSignupForm(SignupForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            if field_name not in ["preferred_flavors", "experience_level"]:
+            if field_name in ["username", "email"]:
+                field.required = True
+                if field.label and " (optional)" in field.label:
+                    field.label = field.label.replace(" (optional)", "")
+            if field_name not in ["experience_level"]:
                 field.widget.attrs.update({"class": "form-control"})
 
     def save(self, request):
@@ -140,7 +144,7 @@ class BeverageSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                "class": "search-input",  # Наш CSS класс из прошлого шага
+                "class": "search-input",
                 "placeholder": "Search by beverage name or description...",
             }
         ),
