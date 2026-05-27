@@ -110,16 +110,6 @@ class TasterSignupForm(SignupForm):
         label="Experience Level",
     )
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            if field_name in ["username", "email"]:
-                field.required = True
-                if field.label and " (optional)" in field.label:
-                    field.label = field.label.replace(" (optional)", "")
-            if field_name not in ["experience_level"]:
-                field.widget.attrs.update({"class": "form-control"})
-
     def save(self, request):
         user = super().save(request)
         user.experience_level = self.cleaned_data["experience_level"]
