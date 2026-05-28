@@ -43,7 +43,7 @@ class BeverageListView(generic.ListView):
         return queryset
 
 
-class BeverageDetailView(generic.DetailView):
+class BeverageDetailView(LoginRequiredMixin, generic.DetailView):
     model = Beverage
     template_name = "catalog/beverage_detail.html"
     context_object_name = "beverage"
@@ -59,14 +59,14 @@ class BeverageDetailView(generic.DetailView):
         return context
 
 
-class BeverageCreateView(generic.CreateView):
+class BeverageCreateView(LoginRequiredMixin, generic.CreateView):
     model = Beverage
     form_class = BeverageForm
     template_name = "catalog/beverage_form.html"
     success_url = reverse_lazy("catalog:beverage-list")
 
 
-class BeverageUpdateView(generic.UpdateView):
+class BeverageUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Beverage
     form_class = BeverageForm
     template_name = "catalog/beverage_form.html"
@@ -77,7 +77,7 @@ class BeverageUpdateView(generic.UpdateView):
         )
 
 
-class BeverageDeleteView(generic.DeleteView):
+class BeverageDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Beverage
     template_name = "catalog/beverage_confirm_delete.html"
     success_url = reverse_lazy("catalog:beverage-list")
@@ -108,20 +108,20 @@ class SnackListView(generic.ListView):
         return queryset
 
 
-class SnackDetailView(generic.DetailView):
+class SnackDetailView(LoginRequiredMixin, generic.DetailView):
     model = Snack
     template_name = "catalog/snack_detail.html"
     context_object_name = "snack"
 
 
-class SnackCreateView(generic.CreateView):
+class SnackCreateView(LoginRequiredMixin, generic.CreateView):
     model = Snack
     form_class = SnackForm
     template_name = "catalog/snack_form.html"
     success_url = reverse_lazy("catalog:snack-list")
 
 
-class SnackUpdateView(generic.UpdateView):
+class SnackUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Snack
     form_class = SnackForm
     template_name = "catalog/snack_form.html"
@@ -132,7 +132,7 @@ class SnackUpdateView(generic.UpdateView):
         )
 
 
-class SnackDeleteView(generic.DeleteView):
+class SnackDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Snack
     template_name = "catalog/snack_confirm_delete.html"
     success_url = reverse_lazy("catalog:snack-list")
@@ -161,20 +161,20 @@ class FlavorListView(generic.ListView):
         return queryset
 
 
-class FlavorDetailView(generic.DetailView):
+class FlavorDetailView(LoginRequiredMixin, generic.DetailView):
     model = Flavor
     template_name = "catalog/flavor_detail.html"
     context_object_name = "flavor"
 
 
-class FlavorCreateView(generic.CreateView):
+class FlavorCreateView(LoginRequiredMixin, generic.CreateView):
     model = Flavor
     form_class = FlavorForm
     template_name = "catalog/flavor_form.html"
     success_url = reverse_lazy("catalog:flavor-list")
 
 
-class FlavorUpdateView(generic.UpdateView):
+class FlavorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Flavor
     form_class = FlavorForm
     template_name = "catalog/flavor_form.html"
@@ -185,7 +185,7 @@ class FlavorUpdateView(generic.UpdateView):
         )
 
 
-class FlavorDeleteView(generic.DeleteView):
+class FlavorDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Flavor
     template_name = "catalog/flavor_confirm_delete.html"
     success_url = reverse_lazy("catalog:flavor-list")
@@ -225,6 +225,7 @@ class ToggleFavoriteView(LoginRequiredMixin, View):
             user.favorite_beverages.remove(beverage)
         else:
             user.favorite_beverages.add(beverage)
-        return redirect(
-            request.META.get("HTTP_REFERER", "catalog:beverage-detail")
-        )
+        referer = request.META.get("HTTP_REFERER")
+        if referer:
+            return redirect(referer)
+        return redirect("catalog:beverage-detail", pk=pk)
