@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Friday Sommelier{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
+</head>
+<body>
+
+<div class="app-wrapper">
+
+  {% include "includes/sidebar.html" %}
+
+  <main class="main-content">
+    <div class="container">
+
+      {% block content %}
+      {% endblock %}
+
+      <footer class="footer">
+        <p>&copy; 2026 Friday Sommelier App. Crafted for weekend relaxation.</p>
+      </footer>
+    </div>
+  </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}{{ beverage.name }} - Friday Sommelier{% endblock %}
+
+{% block content %}
+  <p style="margin-top: 0; margin-bottom: 25px;">
+    <a href="{% url 'catalog:beverage-list' %}" class="back-link">&larr; Back to Catalog</a>
+  </p>
+  <div class="item-card" style="border-bottom: none; padding-bottom: 0;"><h2 class="page-title"
+                                                                             style="margin-bottom: 10px;">{{ beverage.name }}</h2>
+    {% if user.is_authenticated %}
+      <form action="{% url 'catalog:toggle-favorite' beverage.id %}" method="post">
+        {% csrf_token %}
+        {% if is_favorite %}
+          <button type="submit" class="btn-favorite active">❤️ Remove from Favorites</button>
+        {% else %}
+          <button type="submit" class="btn-favorite">🤍 Add to Favorites</button>
+        {% endif %}
+      </form>
+    {% endif %}
+  </div>
+  <div class="action-actions" style="margin-bottom: 20px;">
+    <a href="{% url 'catalog:beverage-update' beverage.id %}" class="btn btn-primary"
+       style="background-color: #3498db;">✏️ Edit Details</a>
+    <a href="{% url 'catalog:beverage-delete' beverage.id %}" class="btn btn-danger">🗑️ Delete Beverage</a>
+  </div>
+  <div style="margin-bottom: 25px; font-size: 1.05rem; color: #555;">
+    <strong>Category:</strong> {{ beverage.alcohol_type.name }} &bull;
+    <strong>Strength (ABV):</strong> {{ beverage.alcohol_strength }}% &bull;
+    <strong>Average Price:</strong> <span class="price">${{ beverage.average_price }}</span>
+  </div>
+
+  {% if beverage.description %}
+    <h3 style="color: #4a1e46; border-bottom: 2px solid #f0e6ef; padding-bottom: 5px; margin-top: 30px;">📝
+      Description</h3>
+    <p style="line-height: 1.6; color: #333;">{{ beverage.description }}</p>
+  {% endif %}
+
+  <h3 style="color: #4a1e46; border-bottom: 2px solid #f0e6ef; padding-bottom: 5px; margin-top: 30px;">👅 Flavor
+    Profile</h3>
+  <div style="margin-top: 10px; margin-bottom: 25px;">
+    {% for flavor in beverage.flavors.all %}
+      <span class="tag">#{{ flavor.name }}</span>
+    {% empty %}
+      <span style="color: #999; font-style: italic;">No specific flavor tags assigned yet.</span>
+    {% endfor %}
+  </div>
+
+  <h3 style="color: #4a1e46; border-bottom: 2px solid #f0e6ef; padding-bottom: 5px; margin-top: 30px;">🧀 Perfect Food
+    Pairings</h3>
+  <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+    {% for snack in beverage.snacks.all %}
+      <div style="background-color: #faf8fa; padding: 15px; border-radius: 8px; border-left: 4px solid #6a2c63;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+          <strong style="font-size: 1.1rem; color: #2b1029;">{{ snack.name }}</strong>
+          {% if snack.is_cooking_required %}
+            <span class="tag tag-cooking">Requires Cooking 🍳</span>
+          {% else %}
+            <span class="tag" style="background-color: #e2f0d9; color: #385723;">Ready to Serve 🥖</span>
+          {% endif %}
+        </div>
+        {% if snack.description %}
+          <p style="margin: 0; font-size: 0.95rem; color: #555; line-height: 1.4;">{{ snack.description }}</p>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p style="color: #999; font-style: italic;">No snack pairings have been selected for this drink yet.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

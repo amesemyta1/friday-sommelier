@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up - Friday Sommelier{% endblock %}
+
+{% block content %}
+  <h2 class="page-title">👤 Create Account</h2>
+  <p class="page-subtitle">Join our community of weekend tasters and get personalized drink recommendations using
+    django-allauth.</p>
+
+  <form method="post" action="{% url 'account_signup' %}" novalidate>
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+
+        {% if field.help_text %}
+          <small style="color: #8c7289; display: block; margin-top: 5px;">{{ field.help_text }}</small>
+        {% endif %}
+
+        {% for error in field.errors %}
+          <div style="color: #e74c3c; font-size: 0.9rem; margin-top: 5px;">{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    <div class="action-actions">
+      <button type="submit" class="btn btn-primary">Register Account</button>
+      <a href="{% url 'account_login' %}" class="btn btn-secondary">Already have an account?</a>
+    </div>
+  </form>
+{% endblock %}
