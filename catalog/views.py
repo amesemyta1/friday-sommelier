@@ -13,7 +13,7 @@ from catalog.forms import (
     SnackSearchForm,
     FlavorSearchForm,
 )
-from catalog.models import Beverage, Snack, Flavor, Taster
+from catalog.models import Beverage, Snack, Flavor, Taster, AlcoholType
 
 
 class BeverageListView(generic.ListView):
@@ -229,3 +229,10 @@ class ToggleFavoriteView(LoginRequiredMixin, View):
         if referer:
             return redirect(referer)
         return redirect("catalog:beverage-detail", pk=pk)
+
+
+class AlcoholTypeCreateView(LoginRequiredMixin, generic.CreateView):
+    model = AlcoholType
+    fields = ["name"]
+    template_name = "catalog/alcohol_type_form.html"
+    success_url = reverse_lazy("catalog:beverage-create")

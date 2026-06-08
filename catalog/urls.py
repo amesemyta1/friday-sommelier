@@ -17,7 +17,7 @@ from catalog.views import (
     FlavorUpdateView,
     FlavorDeleteView,
     TasterProfileView,
-    ToggleFavoriteView,
+    ToggleFavoriteView, AlcoholTypeCreateView,
 )
 
 urlpatterns = [
@@ -75,6 +75,11 @@ urlpatterns = [
         "beverages/<int:pk>/toggle-favorite/",
         ToggleFavoriteView.as_view(),
         name="toggle-favorite",
+    ),
+    path(
+        "alcohol-types/create/",
+        AlcoholTypeCreateView.as_view(),
+        name="alcohol-type-create"
     ),
 ]
 

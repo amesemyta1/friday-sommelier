@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block content %}
-  <p><a href="{% url 'catalog:beverage-list' %}" class="back-link">&larr; Back to Catalog</a></p>
+  <p><a href=\"{% url 'catalog:beverage-list' %}\" class=\"back-link\">&larr; Back to Catalog</a></p>
 
-  <h2 style="color: #2b1029; margin-bottom: 25px;">
+  <h2 class="beverage-form-title">
     {% if object %}📝 Edit Beverage: {{ object.name }}{% else %}➕ Add a New Beverage{% endif %}
   </h2>
 
@@ -17,17 +17,30 @@
     {% for field in form %}
       <div class="form-group">
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
+
+        {% if field.name == "alcohol_type" %}
+          <div class="form-group-inline">
+            <div class="field-wrapper">
+              {{ field }}
+            </div>
+            <a href="{% url 'catalog:alcohol-type-create' %}" class="btn btn-secondary btn-add-type" title="Create a new type">
+              ➕ Add Alcohol
+            </a>
+          </div>
+        {% else %}
+          {{ field }}
+        {% endif %}
+
         {% if field.help_text %}
-          <small style="color: #8c7289;">{{ field.help_text }}</small>
+          <small class="form-help-text">{{ field.help_text }}</small>
         {% endif %}
         {% for error in field.errors %}
-          <div style="color: #e74c3c; font-size: 0.9rem; margin-top: 5px;">{{ error }}</div>
+          <div class="form-field-error">{{ error }}</div>
         {% endfor %}
       </div>
     {% endfor %}
 
-    <div style="margin-top: 30px;">
+    <div class="form-actions">
       <button type="submit" class="btn btn-primary">Save Beverage</button>
       <a href="{% url 'catalog:beverage-list' %}" class="btn btn-secondary">Cancel</a>
     </div>

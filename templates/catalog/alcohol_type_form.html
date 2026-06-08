@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2 class="page-title">➕ Add New Alcohol Type</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <div class="form-group">
+      {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-primary">Save Type</button>
+    <a href="{% url 'catalog:beverage-create' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}
